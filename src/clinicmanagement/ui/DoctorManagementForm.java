@@ -6,7 +6,9 @@ package clinicmanagement.ui;
 
 import clinicmanagement.dao.DoctorDAO;
 import clinicmanagement.entities.Doctor;
+import static java.lang.reflect.Array.set;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -17,13 +19,15 @@ import javax.swing.table.DefaultTableModel;
 public class DoctorManagementForm extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(DoctorManagementForm.class.getName());
-
+    private JFrame parentForm;
     /**
      * Creates new form DoctorManagementForm
      */
-    public DoctorManagementForm() {
+    public DoctorManagementForm(JFrame parent) {
         initComponents();
+        this.parentForm = parent;
         loadDoctorsToTable(); 
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
     }
 
     /**
@@ -58,6 +62,11 @@ public class DoctorManagementForm extends javax.swing.JFrame {
         btnSearchDoctor = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDoctors = new javax.swing.JTable();
+        btnUpdateDoctor = new javax.swing.JButton();
+        btnReturnAdminForm = new javax.swing.JButton();
+        LabelSearchCriteria = new javax.swing.JLabel();
+        LabelSearchTerm = new javax.swing.JLabel();
+        SearchCriteria = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -87,60 +96,100 @@ public class DoctorManagementForm extends javax.swing.JFrame {
 
         tblDoctors.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Tên bác sĩ", "Email", "Giới tính", "Ngày sinh", "Số điện thoại", "Chuyên khoa"
             }
         ));
         jScrollPane2.setViewportView(tblDoctors);
+
+        btnUpdateDoctor.setText("Update doctor");
+        btnUpdateDoctor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateDoctorActionPerformed(evt);
+            }
+        });
+
+        btnReturnAdminForm.setText("Return AdminForm");
+        btnReturnAdminForm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReturnAdminFormActionPerformed(evt);
+            }
+        });
+
+        LabelSearchCriteria.setText("SearchCriteria:");
+
+        LabelSearchTerm.setText("SearchTerm:");
+
+        SearchCriteria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tên bác sĩ", "Email", "Giới tính", "Khoa" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(LabelSearchTerm, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(LabelSearchCriteria, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtSearchDoctor, javax.swing.GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
+                            .addComponent(SearchCriteria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(90, 90, 90)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 715, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                        .addComponent(btnDeleteDoctor))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtSearchDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48)
-                        .addComponent(btnSearchDoctor)
-                        .addGap(75, 75, 75)
-                        .addComponent(btnAddDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(65, 65, 65))
+                        .addComponent(jScrollPane2)))
+                .addGap(57, 57, 57)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAddDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeleteDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnUpdateDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnReturnAdminForm))
+                .addGap(203, 203, 203))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnAddDoctor)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtSearchDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSearchDoctor)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(LabelSearchCriteria, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(SearchCriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtSearchDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchDoctor)
+                    .addComponent(LabelSearchTerm))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnAddDoctor)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnDeleteDoctor)
+                        .addGap(47, 47, 47)
+                        .addComponent(btnUpdateDoctor)
+                        .addGap(42, 42, 42)
+                        .addComponent(btnReturnAdminForm))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(btnDeleteDoctor)))
-                .addContainerGap(35, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -196,11 +245,12 @@ public class DoctorManagementForm extends javax.swing.JFrame {
                 doctor.getDoctorId(),
                 doctor.getFullName(),
                 doctor.getEmail(),
+                doctor.getGender(),
                 doctor.getDateOfBirth(),   
                 doctor.getPhoneNumber(),
                 doctor.getSpecialization(),
                 doctor.getDepartmentId(),
-                doctor.getGender(),
+                
             };
             model.addRow(row);
         }
@@ -208,13 +258,14 @@ public class DoctorManagementForm extends javax.swing.JFrame {
     private void btnSearchDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchDoctorActionPerformed
         // TODO add your handling code here:
         String searchTerm = txtSearchDoctor.getText().trim();
+        String searchBy = (String) SearchCriteria.getSelectedItem();
         DoctorDAO doctorDAO = new DoctorDAO();
         if(searchTerm.isEmpty())
         {
              loadDoctorsToTable();
              return;
         }
-        List<Doctor> searchResult = doctorDAO.searchByName(searchTerm);
+        List<Doctor> searchResult = doctorDAO.searchDoctor(searchTerm, searchBy);
         populateDoctorTable(searchResult);
         if(searchResult.isEmpty())
         {
@@ -225,6 +276,42 @@ public class DoctorManagementForm extends javax.swing.JFrame {
             populateDoctorTable(searchResult);
         }
     }//GEN-LAST:event_btnSearchDoctorActionPerformed
+
+    private void btnUpdateDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateDoctorActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblDoctors.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một bác sĩ để cập nhật.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        try {
+            int doctorId = (int) tblDoctors.getValueAt(selectedRow, 0);
+            DoctorDAO doctorDAO = new DoctorDAO();
+            Doctor doctorToUpdate = doctorDAO.getDoctorById(doctorId);
+            if(doctorToUpdate != null)
+            {
+                AddDoctorDialog updateDoctorDialog = new AddDoctorDialog(this, true, doctorToUpdate);
+                updateDoctorDialog.setVisible(true);
+            }
+            else {
+                JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin bác sĩ", "lỗi", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Có lỗi "+ e.getMessage());
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnUpdateDoctorActionPerformed
+
+    private void btnReturnAdminFormActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnAdminFormActionPerformed
+        // TODO add your handling code here:
+        if(parentForm != null)
+        {
+            parentForm.setVisible(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_btnReturnAdminFormActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,13 +335,18 @@ public class DoctorManagementForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new DoctorManagementForm().setVisible(true));
+   
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LabelSearchCriteria;
+    private javax.swing.JLabel LabelSearchTerm;
+    private javax.swing.JComboBox<String> SearchCriteria;
     private javax.swing.JButton btnAddDoctor;
     private javax.swing.JButton btnDeleteDoctor;
+    private javax.swing.JButton btnReturnAdminForm;
     private javax.swing.JButton btnSearchDoctor;
+    private javax.swing.JButton btnUpdateDoctor;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblDoctors;

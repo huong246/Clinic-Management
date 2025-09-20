@@ -16,13 +16,32 @@ import javax.swing.JOptionPane;
 public class AddDepartmentDialog extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddDepartmentDialog.class.getName());
-
+     private Department departmentToUpdate;
+    /**
+     * Creates new form CreateUserByAdminDialog
+     */
     /**
      * Creates new form AddDepartmentDialog
      */
     public AddDepartmentDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.departmentToUpdate = null;
+        btnSave.setText("Add department");
+    }
+      public AddDepartmentDialog(java.awt.Frame parent, boolean modal, Department departmentToUpdate) {
+        super(parent, modal);
+        initComponents();
+        this.departmentToUpdate = departmentToUpdate;
+        btnSave.setText("Update");
+        populateFields(); 
+    }
+      private void populateFields() {
+        if (departmentToUpdate != null) {
+            txtDepartmentName.setText(departmentToUpdate.getDepartmentName());
+            txtDescription.setText(departmentToUpdate.getDescription());
+            txtConsultationFee.setText(departmentToUpdate.getConsultationFee().toString());
+        }
     }
 
     /**
@@ -135,22 +154,42 @@ public class AddDepartmentDialog extends javax.swing.JDialog {
         BigDecimal fee = new BigDecimal(consultationFee);
         try 
         {
-            Department newDepartment = new Department();
-            newDepartment.setDepartmentName(departmentName);
-            newDepartment.setDescription(description);
-            newDepartment.setConsultationFee(fee);
             DepartmentDAO dao = new DepartmentDAO();
-            boolean success = dao.add(newDepartment);
-            if (success) {
-                JOptionPane.showMessageDialog(this, "Lưu khoa mới thành công!");
-                this.dispose(); 
-            } else {
-                JOptionPane.showMessageDialog(this, "Lưu khoa mới thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            boolean success = false;
+            if(departmentToUpdate == null)
+            {
+                Department newDepartment = new Department();
+                newDepartment.setDepartmentName(departmentName);
+                newDepartment.setDescription(description);
+                newDepartment.setConsultationFee(fee);
+                if (success) {
+                    JOptionPane.showMessageDialog(this, "Thêm khoa mới thành công!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm khoa mới thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
             }
-        }
-        catch(Exception e)
-        {
+            else {  
+                departmentToUpdate.setDepartmentName(departmentName);
+                departmentToUpdate.setDescription(description);
+                departmentToUpdate.setConsultationFee(fee);
+                success = dao.updateDepartment(departmentToUpdate);
+                if (success) {
+                    JOptionPane.showMessageDialog(this, "Cập nhật khoa thành công!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cập nhật khoa thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            if (success) {
+                if (this.getOwner() instanceof DepartmentManagementForm) {
+                    ((DepartmentManagementForm) this.getOwner()).loadDepartmentToTable();
+                }
+                this.dispose();
+            }
+        }catch (NumberFormatException e) {
+             JOptionPane.showMessageDialog(this, "Phí khám phải là một con số.", "Lỗi định dạng", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Đã có lỗi xảy ra: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 

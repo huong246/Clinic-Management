@@ -90,4 +90,49 @@ public class DepartmentDAO {
         }
         return departmentList;
     }
+    public Department getDepartmentById(int departmentId) throws SQLException
+    {
+        String sql = "SELECT * FROM departments WHERE department_id =?";
+        try(Connection conn = DatabaseConnection.getConnection(); 
+            PreparedStatement ps = conn.prepareStatement(sql))
+        {
+            ps.setInt(1, departmentId);
+            try(ResultSet rs = ps.executeQuery())
+            {
+                if(rs.next())
+                {
+                    Department department = new Department();
+                    department.setDepartmentId(rs.getInt("department_id"));
+                    department.setDepartmentName(rs.getString("department_name"));
+                    department.setDescription(rs.getString("description"));
+                    department.setConsultationFee(rs.getBigDecimal("consultation_fee"));
+                    return department;
+                }
+            }
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public boolean updateDepartment(Department department)
+    {
+        String sql = "UPDATE departments SET department_name =?, description =?, consultation_fee =? WHERE department_id =?";
+         try (Connection conn = DatabaseConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) 
+         {
+             ps.setString(1, department.getDepartmentName());
+             ps.setString(2, department.getDescription());
+             ps.setBigDecimal(3, department.getConsultationFee());
+             ps.setInt(4, department.getDepartmentId());
+
+             int rowsAffected = ps.executeUpdate();
+             return rowsAffected > 0;
+         } catch (SQLException e) {
+             e.printStackTrace();
+             return false;
+         }
+    }
+                  
 }

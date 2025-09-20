@@ -115,7 +115,7 @@ public class AdminForm extends javax.swing.JFrame {
 
     private void btnDoctorManagementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorManagementActionPerformed
         // TODO add your handling code here:
-        DoctorManagementForm doctorManagementForm = new DoctorManagementForm();
+        DoctorManagementForm doctorManagementForm = new DoctorManagementForm(this);
         doctorManagementForm.setVisible(true);
         this.setVisible(false); 
     }//GEN-LAST:event_btnDoctorManagementActionPerformed

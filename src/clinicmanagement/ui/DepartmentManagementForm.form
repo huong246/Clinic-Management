@@ -43,6 +43,7 @@
                           <Component id="btnAddDepartment" pref="154" max="32767" attributes="0"/>
                           <Component id="btnDeleteDepartment" alignment="0" pref="154" max="32767" attributes="0"/>
                           <Component id="btnReturnAdminForm" max="32767" attributes="0"/>
+                          <Component id="btnUpdateDepartment" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                   </Group>
@@ -74,7 +75,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="btnDeleteDepartment" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                      <Component id="btnUpdateDepartment" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
                       <Component id="btnReturnAdminForm" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -126,10 +129,10 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="4" rowCount="4">
-                <Column editable="true" title="Title 1" type="java.lang.Object"/>
-                <Column editable="true" title="Title 2" type="java.lang.Object"/>
-                <Column editable="true" title="Title 3" type="java.lang.Object"/>
-                <Column editable="true" title="Title 4" type="java.lang.Object"/>
+                <Column editable="true" title="Id" type="java.lang.Object"/>
+                <Column editable="true" title="T&#xea;n khoa" type="java.lang.Object"/>
+                <Column editable="true" title="M&#xf4; t&#x1ea3;" type="java.lang.Object"/>
+                <Column editable="true" title="Ph&#xed; kh&#xe1;m" type="java.lang.Object"/>
               </Table>
             </Property>
           </Properties>
@@ -150,6 +153,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReturnAdminFormActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnUpdateDepartment">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Update department"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUpdateDepartmentActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

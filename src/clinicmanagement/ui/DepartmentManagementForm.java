@@ -36,7 +36,7 @@ public class DepartmentManagementForm extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
    
-    private void loadDepartmentToTable() {
+    public void loadDepartmentToTable() {
         List<Department> departmentList = DepartmentDAO.getAllDepartment(); 
         DefaultTableModel model = (DefaultTableModel) tblDepartments.getModel();
         model.setRowCount(0);  
@@ -61,6 +61,7 @@ public class DepartmentManagementForm extends javax.swing.JFrame {
         tblDepartments = new javax.swing.JTable();
         btnRefreshTable = new javax.swing.JButton();
         btnReturnAdminForm = new javax.swing.JButton();
+        btnUpdateDepartment = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -96,7 +97,7 @@ public class DepartmentManagementForm extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Id", "Tên khoa", "Mô tả", "Phí khám"
             }
         ));
         jScrollPane1.setViewportView(tblDepartments);
@@ -112,6 +113,13 @@ public class DepartmentManagementForm extends javax.swing.JFrame {
         btnReturnAdminForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReturnAdminFormActionPerformed(evt);
+            }
+        });
+
+        btnUpdateDepartment.setText("Update department");
+        btnUpdateDepartment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateDepartmentActionPerformed(evt);
             }
         });
 
@@ -136,7 +144,8 @@ public class DepartmentManagementForm extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnAddDepartment, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
                             .addComponent(btnDeleteDepartment, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                            .addComponent(btnReturnAdminForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnReturnAdminForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnUpdateDepartment, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(46, 46, 46))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -160,7 +169,9 @@ public class DepartmentManagementForm extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(btnDeleteDepartment)
-                        .addGap(31, 31, 31)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnUpdateDepartment)
+                        .addGap(28, 28, 28)
                         .addComponent(btnReturnAdminForm)))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
@@ -257,6 +268,32 @@ public class DepartmentManagementForm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnReturnAdminFormActionPerformed
 
+    private void btnUpdateDepartmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateDepartmentActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblDepartments.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn một khoa để cập nhật.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        try {
+         
+        int departmentId = (int) tblDepartments.getValueAt(selectedRow, 0);
+ 
+        DepartmentDAO departmentDAO = new DepartmentDAO();
+        Department deptToUpdate = departmentDAO.getDepartmentById(departmentId);
+
+        if (deptToUpdate != null) {
+            AddDepartmentDialog updateDialog = new AddDepartmentDialog(this, true, deptToUpdate);
+            updateDialog.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(this, "Không tìm thấy thông tin khoa.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Có lỗi xảy ra: " + e.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnUpdateDepartmentActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -288,6 +325,7 @@ public class DepartmentManagementForm extends javax.swing.JFrame {
     private javax.swing.JButton btnRefreshTable;
     private javax.swing.JButton btnReturnAdminForm;
     private javax.swing.JButton btnSearchDepartment;
+    private javax.swing.JButton btnUpdateDepartment;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblDepartments;

@@ -26,13 +26,26 @@ public class AddDoctorDialog extends javax.swing.JDialog {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(AddDoctorDialog.class.getName());
     private Map<String, Integer> departmentMap; 
+    private Doctor doctorToUpdate;
     /**
      * Creates new form CreateUserByAdminDialog
      */
     public AddDoctorDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.doctorToUpdate = null;  
+        addDoctor.setText("Add Doctor");
+        btnAddDoctor.setText("Add doctor");
         loadDepartmentsToComboBox();
+    }
+    public AddDoctorDialog(java.awt.Frame parent, boolean modal, Doctor doctorToUpdate) {
+        super(parent, modal);
+        initComponents();
+        this.doctorToUpdate = doctorToUpdate;
+        addDoctor.setText("Update Doctor");
+        btnAddDoctor.setText("Update");
+        loadDepartmentsToComboBox();
+        populateFields();
     }
     private void loadDepartmentsToComboBox() {
         departmentMap = new HashMap<>(); 
@@ -45,6 +58,23 @@ public class AddDoctorDialog extends javax.swing.JDialog {
             int departmentId = dept.getDepartmentId();
             jComboBox2.addItem(departmentName);
             departmentMap.put(departmentName, departmentId); 
+        }
+    }
+    private void populateFields() {
+        if (doctorToUpdate != null) {
+            txtFullName.setText(doctorToUpdate.getFullName());
+            txtBirthday.setText(doctorToUpdate.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            txtEmail.setText(doctorToUpdate.getEmail());
+            txtPhoneNumber.setText(doctorToUpdate.getPhoneNumber());
+            txtSpecialization.setText(doctorToUpdate.getSpecialization());
+            jComboBox1.setSelectedItem(doctorToUpdate.getGender() == Gender.MALE ? "Male" : "Female");
+            for (int i = 0; i < jComboBox2.getItemCount(); i++) {
+                String departmentName = (String) jComboBox2.getItemAt(i);
+                if (departmentMap.get(departmentName) == doctorToUpdate.getDepartmentId()) {
+                    jComboBox2.setSelectedIndex(i);
+                    break;
+                }
+            }
         }
     }
     /**
@@ -206,6 +236,16 @@ public class AddDoctorDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ các trường.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        String emailRegex = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
+        if (!email.matches(emailRegex)) {
+            JOptionPane.showMessageDialog(this, "Định dạng email không hợp lệ. Vui lòng kiểm tra lại.", "Lỗi định dạng", JOptionPane.ERROR_MESSAGE);
+            return; 
+        }
+        String phoneRegex = "^0\\d{9}$";
+        if (!phoneNumber.matches(phoneRegex)) {
+            JOptionPane.showMessageDialog(this, "Số điện thoại không hợp lệ.\nPhải có 10 chữ số và bắt đầu bằng số 0.", "Lỗi định dạng", JOptionPane.ERROR_MESSAGE);
+            return; 
+        }
         try {
             int departmentId = departmentMap.get(selectedDepartmentName);
             Gender gender;
@@ -218,23 +258,48 @@ public class AddDoctorDialog extends javax.swing.JDialog {
             }
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             LocalDate birthday = LocalDate.parse(birthdayStr, formatter);
-            Doctor newDoctor = new Doctor();
-            newDoctor.setFullName(fullName);
-            newDoctor.setDateOfBirth(birthday); 
-            newDoctor.setGender(gender); 
-            newDoctor.setEmail(email);
-            newDoctor.setPhoneNumber(phoneNumber); 
-            newDoctor.setDepartmentId(departmentId);
-            newDoctor.setSpecialization(specialization);
             DoctorDAO doctorDAO = new DoctorDAO();
-            if (doctorDAO.add(newDoctor)) {
-            JOptionPane.showMessageDialog(this, "Thêm bác sĩ thành công!");
+            boolean success = false;
+            if (doctorToUpdate == null) 
+            {
+                Doctor newDoctor = new Doctor();
+                newDoctor.setFullName(fullName);
+                newDoctor.setDateOfBirth(birthday); 
+                newDoctor.setGender(gender); 
+                newDoctor.setEmail(email);
+                newDoctor.setPhoneNumber(phoneNumber); 
+                newDoctor.setDepartmentId(departmentId);
+                newDoctor.setSpecialization(specialization);
+                success = doctorDAO.add(newDoctor);
+                if (success) {
+                    JOptionPane.showMessageDialog(this, "Thêm bác sĩ thành công!");
+                   
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm bác sĩ thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            else { 
+                doctorToUpdate.setFullName(fullName);
+                doctorToUpdate.setDateOfBirth(birthday);
+                doctorToUpdate.setGender(gender);
+                doctorToUpdate.setEmail(email);
+                doctorToUpdate.setPhoneNumber(phoneNumber);
+                doctorToUpdate.setDepartmentId(departmentId);
+                doctorToUpdate.setSpecialization(specialization);
+                
+                success = doctorDAO.updateDoctor(doctorToUpdate);
+                if (success) {
+                    JOptionPane.showMessageDialog(this, "Cập nhật thông tin thành công!");
+         
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cập nhật thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            if (success) {
             if (this.getOwner() instanceof DoctorManagementForm) {
                 ((DoctorManagementForm) this.getOwner()).loadDoctorsToTable();
             }
-            this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(this, "Thêm bác sĩ thất bại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            this.dispose(); 
             }
         }
         catch (java.time.format.DateTimeParseException e) {
