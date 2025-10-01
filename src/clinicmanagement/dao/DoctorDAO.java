@@ -89,20 +89,13 @@ public class DoctorDAO {
         switch(searchBy)
         {
             case "Tên bác sĩ":
-                sql+= "d.full_name LIKE ?";
+                sql+= " d.full_name LIKE ?";
                 break;
             case "Khoa":
-                sql+="dp.department_name LIKE?";
-                break;
-            case "Email":
-                sql += "d.email LIKE?";
-                break;
-            case "Giới tính":
-                sql+="d.gender LIKE?";
+                sql+=" dp.department_name LIKE ?";
                 break;
             default:
                 return doctorList;
-
         }
         try (Connection conn = DatabaseConnection.getConnection();
         PreparedStatement ps = conn.prepareStatement(sql)) {

@@ -13,10 +13,6 @@ import java.sql.Date;
 import java.util.List;
 import org.mindrot.jbcrypt.BCrypt;
 
-/**
- * DAO = Data Access Object
- * This class contains all methods for accessing and manipulating data in the `users` table.
- */
 public class UserDAO {
 
     public User login(String username, String password) {

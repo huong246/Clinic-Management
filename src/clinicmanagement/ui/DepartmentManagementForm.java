@@ -24,6 +24,10 @@ public class DepartmentManagementForm extends javax.swing.JFrame {
      */
     public DepartmentManagementForm(JFrame parent) {
         initComponents();
+        tblDepartments.setShowGrid(true);
+        tblDepartments.setGridColor(new java.awt.Color(220, 220, 220));
+        tblDepartments.setBackground(java.awt.Color.WHITE);
+        jScrollPane1.getViewport().setBackground(java.awt.Color.WHITE);
         this.parentForm = parent;
         loadDepartmentToTable();
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 

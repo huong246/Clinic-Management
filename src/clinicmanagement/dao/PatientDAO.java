@@ -13,10 +13,7 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-/**
- *
- * @author nguye
- */
+
 public class PatientDAO {
     public static List<Patient> getAllPatients() {
         List<Patient> patientList = new ArrayList<>();

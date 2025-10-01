@@ -38,6 +38,7 @@ public class AdminForm extends javax.swing.JFrame {
         btnDoctorManagement = new javax.swing.JButton();
         btnDepartmentManagement = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnPatientManagement = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +75,8 @@ public class AdminForm extends javax.swing.JFrame {
         jLabel1.setText("Welcom to admin");
         jLabel1.setAutoscrolls(true);
 
+        btnPatientManagement.setText("Patient management");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -82,32 +85,33 @@ public class AdminForm extends javax.swing.JFrame {
                 .addGap(79, 79, 79)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnDoctorManagement, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(82, 82, 82)
-                        .addComponent(btnDepartmentManagement))
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(276, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnChangePassword, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58))
+                        .addGap(62, 62, 62)
+                        .addComponent(btnDepartmentManagement)
+                        .addGap(66, 66, 66)
+                        .addComponent(btnPatientManagement)))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnChangePassword)
+                    .addComponent(btnLogOut))
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDoctorManagement)
-                    .addComponent(btnDepartmentManagement))
-                .addGap(130, 130, 130)
-                .addComponent(btnChangePassword)
-                .addGap(30, 30, 30)
-                .addComponent(btnLogOut)
-                .addContainerGap(44, Short.MAX_VALUE))
+                    .addComponent(btnDepartmentManagement)
+                    .addComponent(btnPatientManagement))
+                .addContainerGap(250, Short.MAX_VALUE))
         );
 
         pack();
@@ -178,6 +182,7 @@ public class AdminForm extends javax.swing.JFrame {
     private javax.swing.JButton btnDepartmentManagement;
     private javax.swing.JButton btnDoctorManagement;
     private javax.swing.JButton btnLogOut;
+    private javax.swing.JButton btnPatientManagement;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
