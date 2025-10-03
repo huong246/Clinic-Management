@@ -30,15 +30,23 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
         txtConfirmNewPassword = new javax.swing.JPasswordField();
         btnSave = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        OldPassword.setText("OldPassword:");
+        OldPassword.setText("Old Password:");
 
-        NewPassword.setText("NewPassword:");
+        NewPassword.setText("New Password:");
 
-        ConfirmNewPassword.setText("ConfirmNewPassword:");
+        ConfirmNewPassword.setText("Confirm New Password:");
 
+        txtOldPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        txtNewPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        txtConfirmNewPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        btnSave.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -46,6 +54,7 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
             }
         });
 
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCancel.setText("Cancel");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -53,35 +62,43 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel1.setText("Change Password");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(OldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(NewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE))
-                            .addComponent(ConfirmNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSave)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtOldPassword)
-                            .addComponent(txtNewPassword)
-                            .addComponent(txtConfirmNewPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))
+                            .addComponent(OldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(NewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ConfirmNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtConfirmNewPassword)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtOldPassword)
+                        .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(173, 173, 173)
-                        .addComponent(btnSave)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addGap(34, 34, 34)
                         .addComponent(btnCancel)))
-                .addContainerGap(161, Short.MAX_VALUE))
+                .addContainerGap(40, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(122, 122, 122))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(96, 96, 96)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(23, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(OldPassword)
                     .addComponent(txtOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -93,15 +110,20 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ConfirmNewPassword)
                     .addComponent(txtConfirmNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSave)
                     .addComponent(btnCancel))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(27, 27, 27))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+
+        this.dispose();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
@@ -110,7 +132,7 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
         String confirmPassword = new String(txtConfirmNewPassword.getPassword());
         if (oldPassword.isEmpty() || newPassword.isEmpty() || confirmPassword.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập đầy đủ các trường.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return; 
+            return;
         }
         if (newPassword.length() < 8) {
             JOptionPane.showMessageDialog(this, "Mật khẩu mới phải có ít nhất 8 ký tự.", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -118,7 +140,7 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
         }
         if (!newPassword.equals(confirmPassword)) {
             JOptionPane.showMessageDialog(this, "Mật khẩu mới và mật khẩu xác nhận không khớp.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            return; 
+            return;
         }
         if (newPassword.equals(oldPassword)) {
             JOptionPane.showMessageDialog(this, "Mật khẩu mới phải khác mật khẩu cũ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -128,17 +150,12 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
         boolean success = adminDAO.changePassword(this.userId, oldPassword, newPassword);
         if (success) {
             JOptionPane.showMessageDialog(this, "Đổi mật khẩu thành công!");
-            this.dispose(); 
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Đổi mật khẩu thất bại. Mật khẩu cũ không chính xác.", "Thất bại", JOptionPane.ERROR_MESSAGE);
             txtOldPassword.requestFocus();
         }
     }//GEN-LAST:event_btnSaveActionPerformed
-
-    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-
-        this.dispose();
-    }//GEN-LAST:event_btnCancelActionPerformed
 
     
 
@@ -148,6 +165,7 @@ public class ChangePasswordDialog extends javax.swing.JDialog {
     private javax.swing.JLabel OldPassword;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPasswordField txtConfirmNewPassword;
     private javax.swing.JPasswordField txtNewPassword;
     private javax.swing.JPasswordField txtOldPassword;
